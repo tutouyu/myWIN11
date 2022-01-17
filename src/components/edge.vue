@@ -320,7 +320,7 @@ export default defineComponent({
 }
 .smalledge{
    @extend .bigedge;
-   transform:  scale(0.5,0.6);
+   transform:  scale(0.6);
    overflow: hidden;
 }
 </style>

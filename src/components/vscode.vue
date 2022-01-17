@@ -100,6 +100,6 @@ export default defineComponent({
 }
 .vscode1 {
   @extend .vscode;
-  transform: scale(0.5, 0.6);
+  transform: scale(0.6);
 }
 </style>

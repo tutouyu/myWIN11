@@ -18,6 +18,7 @@
           :img="fileimg[item.type - 1]"
           :childfiles="item.files"
           :fileimg="fileimg"
+          :file="item"
           @markpath="markpath"
         ></sidefile>
       </div>
@@ -35,6 +36,7 @@ export default defineComponent({
     img: String,
     childfiles: Array,
     fileimg: Array,
+    file: Object,
   },
   emits: ["markpath"],
   setup(props, { emit }) {
@@ -46,14 +48,15 @@ export default defineComponent({
     });
     const showchild = () => {
       state.ifshow = !state.ifshow;
-       state.store.commit("refreshcontentfile",props.childfiles);
+      state.store.commit("refreshcontentfile", props.childfiles);
     };
     const markpath = () => {
       if (state.store.state.pathflag) {
+        state.store.commit("endpushpath");
         state.store.commit("clearpath");
         state.store.commit("changeflag");
       }
-      state.store.commit("reditpath", props.name);
+      state.store.commit("reditpath", props.file);
       emit("markpath");
     };
     return {

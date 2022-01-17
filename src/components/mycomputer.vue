@@ -43,10 +43,9 @@
     </div>
     <div class="navbar">
       <div class="tofrom">
-        <img src="../assets/fileexplorer/左.png" alt="" /><img
-          src="../assets/fileexplorer/右.png"
-          alt=""
-        /><img src="../assets/fileexplorer/上.png" alt="" />
+        <img src="../assets/fileexplorer/左.png" alt="" @click.stop="back" />
+        <img src="../assets/fileexplorer/右.png" alt="" @click="push" />
+        <img src="../assets/fileexplorer/上.png" alt="" />
       </div>
       <div class="address">
         <img src="../assets/fileexplorer/computer.png" alt="" />
@@ -55,8 +54,9 @@
             v-for="(item, index) in state.store.state.path"
             :key="index"
             class="curpath"
+            @click="clickpath(index)"
           >
-            &nbsp;{{ item }}&nbsp;>&nbsp;
+            &nbsp;{{ item.name }}&nbsp;>&nbsp;
           </div>
         </div>
         <img src="../assets/fileexplorer/右.png" alt="" class="to" />
@@ -77,6 +77,7 @@
             :img="state.fileimg[item.type - 1]"
             :childfiles="item.files"
             :fileimg="state.fileimg"
+            :file="item"
             @markpath="toto"
           ></sidefile>
         </div>
@@ -162,6 +163,7 @@ export default defineComponent({
         },
       ],
     });
+    //递归组件最后返回到这 把清空的标志重新设置
     const toto = () => {
       state.store.commit("changeflag");
     };
@@ -169,14 +171,22 @@ export default defineComponent({
       emit("closeComputer");
     };
     const tochildfile = (files: any) => {
-      console.log(files);
       state.store.commit("refreshcontentfile", files.files);
-      state.store.commit("pushpath", files.name);
+      state.store.commit("pushpath", files);
     };
     const bigorsmall = () => {
       state.size = !state.size;
     };
+    //点击地址栏事件触发
+    const clickpath = (index: Number) => {
+      state.store.commit("clickpath", index);
+    };
+    const back=()=>{
+      state.store.commit("backpath")
+    }
     return {
+      back,
+      clickpath,
       close,
       bigorsmall,
       state,
@@ -441,6 +451,6 @@ export default defineComponent({
 }
 .smallmycomputer {
   @extend .bigmycomputer;
-  transform: scale(0.5, 0.6);
+  transform: scale(0.6);
 }
 </style>
