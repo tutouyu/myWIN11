@@ -59,7 +59,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive, getCurrentInstance } from "vue";
+import { ref, defineComponent, reactive} from "vue";
 export default defineComponent({
   setup(props, { emit }) {
     let state = reactive({

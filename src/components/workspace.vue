@@ -10,7 +10,16 @@
       <span>{{ item.name }}</span>
     </div>
     <transition name="fade">
-      <edge v-if="state.ifEdge" @closeEdge="close"></edge>
+      <edge v-if="state.ifEdge" @closeEdge="closeEd"></edge>
+    </transition>
+    <transition name="fade">
+      <vscode v-if="state.ifVscode" @closeVscode="closeVs"></vscode>
+    </transition>
+    <transition name="fade">
+      <computer v-if="state.ifComputer" @closeComputer="closeCom"></computer>
+    </transition>
+    <transition name="fade">
+      <recycle v-if="state.ifRecycle" @closeRecycle="closeRec"></recycle>
     </transition>
   </div>
 </template>
@@ -18,9 +27,15 @@
 <script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 import edge from "./edge.vue";
+import vscode from "./vscode.vue";
+import computer from "./mycomputer.vue";
+import recycle from "./recylebin.vue";
 export default defineComponent({
   components: {
     edge,
+    vscode,
+    computer,
+    recycle,
   },
   setup() {
     const state = reactive({
@@ -33,29 +48,44 @@ export default defineComponent({
         { name: "github", img: require("../assets/icons/github.png") },
       ],
       ifEdge: false,
+      ifVscode: false,
+      ifComputer: false,
+      ifRecycle: false,
     });
     const open = (index: Number) => {
       if (index == 0) {
-        alert("0");
+        state.ifComputer = true;
       } else if (index == 1) {
-        alert("1");
+        state.ifRecycle = true;
       } else if (index == 2) {
         state.ifEdge = true;
       } else if (index == 3) {
         alert("3");
       } else if (index == 4) {
-        alert("4");
+        state.ifVscode = true;
       } else if (index == 5) {
         window.open("https://github.com/tutouyu/myWIN11");
       }
     };
-    const close = () => {
+    const closeRec = () => {
+      state.ifRecycle = false;
+    };
+    const closeEd = () => {
       state.ifEdge = false;
+    };
+    const closeVs = () => {
+      state.ifVscode = false;
+    };
+    const closeCom = () => {
+      state.ifComputer = false;
     };
     return {
       state,
       open,
-      close,
+      closeEd,
+      closeVs,
+      closeCom,
+      closeRec,
     };
   },
 });
@@ -75,7 +105,7 @@ export default defineComponent({
   }
   .fade-enter-from,
   .fade-leave-to {
-      opacity: 0;
+    opacity: 0;
   }
   .deskicon {
     display: flex;

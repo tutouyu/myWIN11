@@ -3,7 +3,6 @@
 </template>
 <script>
 import { ref, defineComponent } from "vue";
-import { useRouter } from "vue-router";
 import taskbar from "../components/taskbar.vue";
 import workspace from "../components/workspace.vue";
 export default defineComponent({
