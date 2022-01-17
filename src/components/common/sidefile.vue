@@ -81,11 +81,11 @@ export default defineComponent({
     img {
       vertical-align: middle;
       margin: 3px;
-      width: 18px;
-      height: 18px;
+      width: 25px;
+      height: 25px;
     }
     span {
-      font-size: 14px;
+      font-size: 18px;
     }
   }
 

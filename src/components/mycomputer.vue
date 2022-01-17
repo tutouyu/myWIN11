@@ -1,5 +1,5 @@
 <template>
-  <div class="mycomputer">
+  <div :class="{ bigmycomputer: state.size, smallmycomputer: !state.size }">
     <div class="toolbar">
       <div class="leftbar">
         <div class="imgbox">
@@ -121,6 +121,7 @@ export default defineComponent({
         require("../assets/fileexplorer/download.png"),
         require("../assets/fileexplorer/folder.png"),
       ],
+      size: true,
       files: [
         {
           name: "快速访问",
@@ -172,7 +173,9 @@ export default defineComponent({
       state.store.commit("refreshcontentfile", files.files);
       state.store.commit("pushpath", files.name);
     };
-    const bigorsmall = () => {};
+    const bigorsmall = () => {
+      state.size = !state.size;
+    };
     return {
       close,
       bigorsmall,
@@ -185,13 +188,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.mycomputer {
+.bigmycomputer {
   border: 1px solid rgb(211, 209, 209);
-  width: 1000px;
-  height: 600px;
+  width: 100%;
+  height: 94vh;
   position: absolute;
-  top: calc(50% - 300px);
-  left: calc(50% - 500px);
   background-color: #f3f3f3;
   .toolbar {
     width: 100%;
@@ -333,11 +334,13 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    font-size: 18px;
     .tofrom {
       height: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: space-around;
       align-items: center;
+      width: 10%;
       img {
         border-radius: 12.5px;
         margin: 0 10px;
@@ -349,7 +352,7 @@ export default defineComponent({
       }
     }
     .address {
-      width: 60%;
+      width: 70%;
       height: 70%;
       border: 1px rgb(77, 77, 77) solid;
       display: flex;
@@ -405,8 +408,9 @@ export default defineComponent({
       justify-content: flex-start;
       align-content: flex-start;
       flex-wrap: wrap;
-      width: 18%;
-      height: calc(600px - 32px - 40px - 50px - 5px);
+      width: 15%;
+      padding: 10px;
+      height: calc(94vh - 32px - 40px - 50px - 5px);
       overflow: scroll;
       .sidefiles {
         width: 100%;
@@ -417,16 +421,16 @@ export default defineComponent({
       display: flex;
       padding: 10px;
       .contentfile {
-        width: 100px;
-        height: 100px;
+        width: 150px;
+        height: 150px;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         img {
           margin: 5px;
-          width: 40px;
-          height: 40px;
+          width: 60px;
+          height: 60px;
         }
         &:hover {
           background-color: rgb(199, 218, 231);
@@ -434,5 +438,9 @@ export default defineComponent({
       }
     }
   }
+}
+.smallmycomputer {
+  @extend .bigmycomputer;
+  transform: scale(0.5, 0.6);
 }
 </style>

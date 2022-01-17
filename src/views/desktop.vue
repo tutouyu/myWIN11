@@ -15,6 +15,7 @@ export default defineComponent({
 
 <style lang="scss">
 .desktop {
+  height: 100vh;
   background: url("../assets/background/background.png");
   background-size: 100% 100%;
   background-position: center center;

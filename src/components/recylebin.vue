@@ -1,5 +1,5 @@
 <template>
-  <div class="recycle">
+  <div class="recycle" @click="mouseclick">
     <div class="toolbar">
       <div class="leftbar">
         <div class="imgbox">
@@ -50,9 +50,7 @@
       </div>
       <div class="address">
         <img src="../assets/fileexplorer/computer.png" alt="" />
-        <div class="path">
-          回收站
-        </div>
+        <div class="path">回收站</div>
         <img src="../assets/fileexplorer/右.png" alt="" class="to" />
       </div>
       <div class="search">
@@ -65,10 +63,17 @@
           v-for="(item, index) in state.store.state.binfiles"
           :key="index"
           class="contentfile"
+          @contextmenu.prevent.stop="recycleRight($event, index)"
         >
-          <img :src="state.fileimg[item.type]" alt="" />
+          <img :src="item.img" alt="" />
           <span>{{ item.name }}</span>
         </div>
+        <recyclemenu
+          v-if="state.rightshow"
+          :positionx="state.mouseposition.x"
+          :positiony="state.mouseposition.y"
+          @recover="recover"
+        ></recyclemenu>
       </div>
     </div>
   </div>
@@ -77,14 +82,21 @@
 <script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 import sidefile from "./common/sidefile.vue";
+import recyclemenu from "./recyclemenu.vue";
 import { useStore } from "vuex";
 export default defineComponent({
   components: {
     sidefile,
+    recyclemenu,
   },
   setup(props, { emit }) {
     let state = reactive({
       store: useStore(),
+      mouseposition: {
+        x: "0",
+        y: "0",
+      },
+      rightshow: false,
       //files中type对应的图片数组
       fileimg: [
         require("../assets/icons/computer.png"),
@@ -103,10 +115,32 @@ export default defineComponent({
     const close = () => {
       emit("closeRecycle");
     };
+    const recycleRight = (e: any, index: Number) => {
+      let rb: HTMLElement = document.querySelector(".recycle") as HTMLElement;
+      let left = rb.offsetLeft;
+      let top = rb.offsetTop;
+      state.rightshow = false;
+      state.mouseposition.x = String(e.x - left);
+      state.mouseposition.y = String(e.y - top);
+      state.store.commit("recovernum",index);
+      setTimeout(() => {
+        state.rightshow = true;
+      }, 1);
+    };
+    const mouseclick = () => {
+      state.rightshow = false;
+    };
+    const recover = () => {
+       state.rightshow = false;
+       state.store.commit("recovericon",state.store.state.recovernum)
+    };
     const bigorsmall = () => {};
     return {
+      recover,
       close,
       bigorsmall,
+      recycleRight,
+      mouseclick,
       state,
     };
   },
