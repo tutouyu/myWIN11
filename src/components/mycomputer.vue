@@ -44,7 +44,7 @@
     <div class="navbar">
       <div class="tofrom">
         <img src="../assets/fileexplorer/左.png" alt="" @click.stop="back" />
-        <img src="../assets/fileexplorer/右.png" alt="" @click="push" />
+        <img src="../assets/fileexplorer/右.png" alt="" @click.stop="next" />
         <img src="../assets/fileexplorer/上.png" alt="" />
       </div>
       <div class="address">
@@ -123,6 +123,7 @@ export default defineComponent({
         require("../assets/fileexplorer/folder.png"),
       ],
       size: true,
+      
       files: [
         {
           name: "快速访问",
@@ -181,10 +182,14 @@ export default defineComponent({
     const clickpath = (index: Number) => {
       state.store.commit("clickpath", index);
     };
-    const back=()=>{
-      state.store.commit("backpath")
-    }
+    const back = () => {
+      state.store.commit("backpath");
+    };
+    const next = () => {
+      state.store.commit("nextpath");
+    };
     return {
+      next,
       back,
       clickpath,
       close,

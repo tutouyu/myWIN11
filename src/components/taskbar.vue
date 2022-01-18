@@ -2,7 +2,7 @@
   <div class="taskbar">
     <div class="leftbar"></div>
     <div class="centerbar">
-      <div v-for="(item, index) in state.baricon" :key="index" class="baricon">
+      <div v-for="(item, index) in state.baricon" :key="index" class="baricon" @click="show(index)">
         <img :src="item.img" alt="" />
       </div>
     </div>
@@ -26,8 +26,10 @@
 
 <script>
 import { ref, defineComponent, reactive } from "vue";
+import { useStore } from "vuex";
 export default defineComponent({
-  setup() {
+  setup(props, { emit }) {
+    let store=useStore()
     let state = reactive({
       baricon: [
         { name: "start", img: require("../assets/icons/start.png") },
@@ -45,7 +47,13 @@ export default defineComponent({
         { name: "audio", img: require("../assets/ui/audio.png") },
       ],
     });
+    let show=(index)=>{
+      if(index==0){
+        store.commit("workandtask",0)
+      }
+    }
     return {
+      show,
       state,
     };
   },

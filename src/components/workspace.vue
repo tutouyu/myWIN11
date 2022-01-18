@@ -50,6 +50,9 @@
           @closeiconmenu="closeiconmenu"
         ></iconmenu>
       </transition>
+      <transition name="fade">
+        <winmenu v-if="state.store.state.taskflag[0]"></winmenu>
+      </transition>
     </div>
   </div>
 </template>
@@ -63,8 +66,10 @@ import computer from "./mycomputer.vue";
 import recycle from "./recylebin.vue";
 import rightmenu from "./rightmenu.vue";
 import iconmenu from "./iconmenu.vue";
+import winmenu from "./taskcomponents/winmenu.vue";
 export default defineComponent({
   components: {
+    winmenu,
     rightmenu,
     edge,
     vscode,
@@ -80,8 +85,8 @@ export default defineComponent({
       // ifComputer: false,
       // ifRecycle: false,
       // ifRight: false,
-      //修改为数组更方便 电脑0 回收站1 浏览器2 空文件夹3 vscode4 github 5 右键菜单6 图标右键7
-      ifshow: [false, false, false, false, false, false, false, false],
+      //修改为数组更方便 电脑0 回收站1 浏览器2 空文件夹3 vscode4 github 5 右键菜单6 图标右键7 开始菜单8
+      ifshow: [false, false, false, false, false, false, false, false,false],
       ifrefresh: true,
       mouseposition: {
         x: "0",
@@ -161,9 +166,14 @@ export default defineComponent({
         state.ifshow[7] = true;
       }, 1);
     };
+    //展示开始菜单
+    const startmenu=()=>{
+      state.ifshow[8]=true;
+    }
     return {
       state,
       closeRig,
+      startmenu,
       closeiconmenu,
       iconRight,
       open,

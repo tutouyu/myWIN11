@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 export default createStore({
   state: {
     path: [{
-      name: 'this pc',
+      name: '',
       files: [{
         name: "快速访问",
         type: 2,
@@ -43,9 +43,9 @@ export default createStore({
       },]
     }],
     pathflag: true,
-    nextpath: [],
+    nextpath: [] as any,
     lastpath: [[{
-      name: 'this pc',
+      name: '',
       files: [{
         name: "快速访问",
         type: 2,
@@ -89,6 +89,7 @@ export default createStore({
     opennum: 0,
     deletenum: 0,
     recovernum: 0,
+    taskflag:[false,false],
     deskicon: [
       { name: "此电脑", img: require("../assets/icons/computer.png"), type: 0 },
       { name: "回收站", img: require("../assets/icons/trash-full.png"), type: 1 },
@@ -161,6 +162,10 @@ export default createStore({
     ] as any,
   },
   mutations: {
+    //任务栏控制显示
+    workandtask:function(state,num){
+      state.taskflag[num]=!state.taskflag[num]
+    },
     //确定恢复的文件是第几个
     recovernum: function (state, num) {
       state.recovernum = num;
@@ -213,6 +218,8 @@ export default createStore({
     },
     //点击地址栏修改内容显示和地址显示
     clickpath: function (state, index) {
+      let item = JSON.parse(JSON.stringify(state.path));
+      state.lastpath.push(item)
       state.path.splice(index + 1, state.path.length - index - 1)
       state.contentfile.splice(0, state.contentfile.length);
       state.contentfile = state.path[index].files;
@@ -224,7 +231,7 @@ export default createStore({
     clearpath: function (state) {
       state.path.splice(0, state.path.length);
     },
-    //侧边栏递归结束记录历史
+    //侧边栏递归结束记录历史 应该叫startpushpath 懒得改了
     endpushpath: function (state) {
       let item = JSON.parse(JSON.stringify(state.path));
       state.lastpath.push(item)//侧边栏递归后结束后记录地址历史
@@ -243,12 +250,21 @@ export default createStore({
     refreshcontentfile: function (state, files) {
       state.contentfile = files;
     },
+    nextpath: function (state) {
+      if (state.nextpath.length >= 1) {
+        let item = JSON.parse(JSON.stringify(state.path))
+        state.lastpath.push(item)
+        state.path = state.nextpath[state.nextpath.length - 1]
+        state.contentfile = state.path[state.path.length - 1].files
+        state.nextpath.pop()
+      }
+    },
     //历史回退
     backpath: function (state) {
       if (state.lastpath.length >= 1) {
-        console.log(Array.isArray(state.path))
+        let item = JSON.parse(JSON.stringify(state.path));
+        state.nextpath.push(item)
         state.path = state.lastpath[state.lastpath.length - 1]
-        console.log(Array.isArray(state.path))
         state.contentfile = state.path[state.path.length - 1].files
         state.lastpath.pop()
       }
