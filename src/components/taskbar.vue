@@ -2,12 +2,17 @@
   <div class="taskbar">
     <div class="leftbar"></div>
     <div class="centerbar">
-      <div v-for="(item, index) in state.baricon" :key="index" class="baricon" @click="show(index)">
+      <div
+        v-for="(item, index) in state.baricon"
+        :key="index"
+        class="baricon"
+        @click="show(index)"
+      >
         <img :src="item.img" alt="" />
       </div>
     </div>
     <div class="rightbar">
-      <div class="otherbar">
+      <div class="otherbar" @click="settingclick">
         <div
           v-for="(item, index) in state.attricon"
           :key="index"
@@ -17,8 +22,18 @@
         </div>
       </div>
       <div class="timebar">
-        <span>{{ state.time.curtime }}</span>
-        <span>{{ state.time.day }}</span>
+        <span>{{
+          year +
+          "&nbsp;" +
+          "/" +
+          "&nbsp;" +
+          month +
+          "&nbsp;" +
+          "/" +
+          "&nbsp;" +
+          day
+        }}</span>
+        <span>{{ hh + ":" + mm + " " + state.week[week] }}</span>
       </div>
     </div>
   </div>
@@ -29,17 +44,33 @@ import { ref, defineComponent, reactive } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   setup(props, { emit }) {
-    let store=useStore()
+    var now = new Date();
+    var year = now.getFullYear();
+    var month = now.getMonth() + 1;
+    var day = now.getDate();
+    var hh = now.getHours();
+    var mm = now.getMinutes();
+    var ss = now.getSeconds();
+    var week = now.getDay();
+    let store = useStore();
     let state = reactive({
+      week: [
+        "星期天",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六",
+      ],
       baricon: [
         { name: "start", img: require("../assets/icons/start.png") },
         { name: "search", img: require("../assets/icons/search-light.png") },
         { name: "setting", img: require("../assets/icons/settings.png") },
-        { name: "files", img: require("../assets/icons/explorer.png") },
       ],
       time: {
-        day: "2022/1/22",
-        curtime: "17:37 周三",
+        day: year + " " + "/" + " " + month + " " + " / " + "" + day,
+        curtime: hh + ":" + mm + ":" + ss,
       },
       attricon: [
         { name: "wife", img: require("../assets/ui/offline-mode.png") },
@@ -47,12 +78,27 @@ export default defineComponent({
         { name: "audio", img: require("../assets/ui/audio.png") },
       ],
     });
-    let show=(index)=>{
-      if(index==0){
-        store.commit("workandtask",0)
+    let show = (index) => {
+      if (index == 0) {
+        store.commit("workandtask", 0);
+      } else if (index == 1) {
+        store.commit("workandtask", 1);
+      } else if (index == 2) {
+        store.commit("workandtask", 1);
       }
-    }
+    };
+    const settingclick = () => {
+      store.commit("workandtask", 2);
+    };
     return {
+      week,
+      year,
+      month,
+      day,
+      hh,
+      mm,
+      ss,
+      settingclick,
       show,
       state,
     };
@@ -67,8 +113,8 @@ export default defineComponent({
   background-color: rgba($color: #dbd6d6, $alpha: 0.9);
   display: flex;
   justify-content: space-between;
-  .leftbar{
-      width: 210px;
+  .leftbar {
+    width: 210px;
   }
   .centerbar {
     display: flex;

@@ -4,7 +4,7 @@ import Open from '../views/open.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Open',
+    name: 'home',
     component: Open
   },
   {

@@ -1,6 +1,10 @@
 <template>
-  <div :class="{bigedge:state.status,smalledge:!state.status}">
-    <div class="tagbar">
+  <div :class="{ bigedge: state.status, smalledge: !state.status }" id="edge">
+    <div
+      class="tagbar"
+      @mousedown.self="mousedown($event)"
+      @mouseup.self="mouseup($event)"
+    >
       <div class="lefttag">
         <div class="imgbox">
           <img src="../assets/icons/edge.png" alt="" />
@@ -29,7 +33,7 @@
         <input type="text" v-model="state.addressValue" />
       </div>
       <div class="to" @click="toNewAddress">
-        <img src="../assets/ui/arrowRight.png" alt="">
+        <img src="../assets/ui/arrowRight.png" alt="" />
       </div>
       <div class="dian">
         <img src="../assets/ui/threedian.png" alt="" />
@@ -59,7 +63,7 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, reactive} from "vue";
+import { ref, defineComponent, reactive } from "vue";
 export default defineComponent({
   setup(props, { emit }) {
     let state = reactive({
@@ -129,7 +133,48 @@ export default defineComponent({
     const bigorsmall = () => {
       state.status = !state.status;
     };
+    const mousedown = (event: any) => {
+      var event = event || window.event;
+      var _target: HTMLElement = document.querySelector("#edge") as HTMLElement;
+      console.log(_target);
+      var startx = event.clientX;
+      var starty = event.clientY;
+      var sb_bkx = startx - _target.offsetLeft;
+      var sb_bky = starty - _target.offsetTop;
+      var ww = document.documentElement.clientWidth;
+      var wh = window.innerHeight;
+
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+
+      document.onmousemove = function (ev: any) {
+        var event = ev || window.event;
+        var scrolltop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        if (
+          event.clientY < 0 ||
+          event.clientX < 0 ||
+          event.clientY > wh ||
+          event.clientX > ww
+        ) {
+          return false;
+        }
+        var endx = event.clientX - sb_bkx;
+        var endy = event.clientY - sb_bky;
+        _target.style.left = endx + "px";
+        _target.style.top = endy + "px";
+      };
+    };
+
+    const mouseup = (e: any) => {
+      document.onmousemove = null;
+    };
     return {
+      mousedown,
+      mouseup,
       state,
       close,
       totagweb,
@@ -254,7 +299,7 @@ export default defineComponent({
       display: flex;
       align-items: center;
       height: 100%;
-      flex:1;
+      flex: 1;
       input {
         border-radius: 10px;
         width: 100%;
@@ -318,9 +363,9 @@ export default defineComponent({
     height: calc(94vh - 26px - 50px - 32px);
   }
 }
-.smalledge{
-   @extend .bigedge;
-   transform:  scale(0.6);
-   overflow: hidden;
+.smalledge {
+  @extend .bigedge;
+  transform: scale(0.6);
+  overflow: hidden;
 }
 </style>

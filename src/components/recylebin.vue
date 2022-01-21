@@ -1,6 +1,10 @@
 <template>
-  <div class="recycle" @click="mouseclick">
-    <div class="toolbar">
+  <div class="recycle" @click="mouseclick" id="recycle">
+    <div
+      class="toolbar"
+      @mousedown.self="mousedown($event)"
+      @mouseup.self="mouseup($event)"
+    >
       <div class="leftbar">
         <div class="imgbox">
           <img src="../assets/icons/computer.png" alt="" />
@@ -122,7 +126,7 @@ export default defineComponent({
       state.rightshow = false;
       state.mouseposition.x = String(e.x - left);
       state.mouseposition.y = String(e.y - top);
-      state.store.commit("recovernum",index);
+      state.store.commit("recovernum", index);
       setTimeout(() => {
         state.rightshow = true;
       }, 1);
@@ -131,11 +135,54 @@ export default defineComponent({
       state.rightshow = false;
     };
     const recover = () => {
-       state.rightshow = false;
-       state.store.commit("recovericon",state.store.state.recovernum)
+      state.rightshow = false;
+      state.store.commit("recovericon", state.store.state.recovernum);
     };
     const bigorsmall = () => {};
+    const mousedown = (event: any) => {
+      var event = event || window.event;
+      var _target: HTMLElement = document.querySelector(
+        "#recycle"
+      ) as HTMLElement;
+      console.log(_target);
+      var startx = event.clientX;
+      var starty = event.clientY;
+      var sb_bkx = startx - _target.offsetLeft;
+      var sb_bky = starty - _target.offsetTop;
+      var ww = document.documentElement.clientWidth;
+      var wh = window.innerHeight;
+
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+
+      document.onmousemove = function (ev: any) {
+        var event = ev || window.event;
+        var scrolltop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        if (
+          event.clientY < 0 ||
+          event.clientX < 0 ||
+          event.clientY > wh ||
+          event.clientX > ww
+        ) {
+          return false;
+        }
+        var endx = event.clientX - sb_bkx;
+        var endy = event.clientY - sb_bky;
+        _target.style.left = endx + "px";
+        _target.style.top = endy + "px";
+      };
+    };
+
+    const mouseup = (e: any) => {
+      document.onmousemove = null;
+    };
     return {
+      mousedown,
+      mouseup,
       recover,
       close,
       bigorsmall,

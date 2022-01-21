@@ -51,7 +51,16 @@
         ></iconmenu>
       </transition>
       <transition name="fade">
-        <winmenu v-if="state.store.state.taskflag[0]"></winmenu>
+        <winmenu
+          v-if="state.store.state.taskflag[0]"
+          @taskopen="taskopen"
+        ></winmenu>
+      </transition>
+      <transition name="fade">
+        <tasknothing v-if="state.store.state.taskflag[1]"></tasknothing>
+      </transition>
+      <transition name="fade">
+        <tasksetting v-if="state.store.state.taskflag[2]"></tasksetting>
       </transition>
     </div>
   </div>
@@ -66,16 +75,20 @@ import computer from "./mycomputer.vue";
 import recycle from "./recylebin.vue";
 import rightmenu from "./rightmenu.vue";
 import iconmenu from "./iconmenu.vue";
-import winmenu from "./taskcomponents/winmenu.vue";
+import winmenu from "./winmenu.vue";
+import tasknothing from "./tasknothing.vue";
+import tasksetting from "./tasksetting.vue";
 export default defineComponent({
   components: {
     winmenu,
+    tasknothing,
     rightmenu,
     edge,
     vscode,
     computer,
     recycle,
     iconmenu,
+    tasksetting,
   },
   setup(props, { emit }) {
     const state = reactive({
@@ -85,8 +98,19 @@ export default defineComponent({
       // ifComputer: false,
       // ifRecycle: false,
       // ifRight: false,
-      //修改为数组更方便 电脑0 回收站1 浏览器2 空文件夹3 vscode4 github 5 右键菜单6 图标右键7 开始菜单8
-      ifshow: [false, false, false, false, false, false, false, false,false],
+      //修改为数组更方便 电脑0 回收站1 浏览器2 空文件夹3 vscode4 github 5 右键菜单6 图标右键7 开始菜单8 功能点界面9
+      ifshow: [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+      ],
       ifrefresh: true,
       mouseposition: {
         x: "0",
@@ -95,6 +119,15 @@ export default defineComponent({
     });
     //桌面图标点击
     const open = (type: Number) => {
+      if (state.store.state.taskflag[0] == true) {
+        state.store.commit("workandtask", 0);
+      }
+      if (state.store.state.taskflag[1] == true) {
+        state.store.commit("workandtask", 1);
+      }
+      if (state.store.state.taskflag[2] == true) {
+        state.store.commit("workandtask", 2);
+      }
       state.ifshow[6] = false;
       state.ifshow[7] = false;
       if (type == 0) {
@@ -104,7 +137,7 @@ export default defineComponent({
       } else if (type == 2) {
         state.ifshow[2] = true;
       } else if (type == 3) {
-        state.ifshow[3] = true;
+        state.store.commit("workandtask", 1);
       } else if (type == 4) {
         state.ifshow[4] = true;
       } else if (type == 5) {
@@ -128,6 +161,15 @@ export default defineComponent({
       state.ifshow[0] = false;
     };
     const rightClick = (e: any) => {
+      if (state.store.state.taskflag[0] == true) {
+        state.store.commit("workandtask", 0);
+      }
+      if (state.store.state.taskflag[1] == true) {
+        state.store.commit("workandtask", 1);
+      }
+      if (state.store.state.taskflag[2] == true) {
+        state.store.commit("workandtask", 2);
+      }
       state.ifshow[6] = false;
       state.ifshow[7] = false;
       state.mouseposition.x = String(e.x);
@@ -146,6 +188,15 @@ export default defineComponent({
     };
     //鼠标点击时候右键菜单隐藏
     const mouseclick = () => {
+      if (state.store.state.taskflag[0] == true) {
+        state.store.commit("workandtask", 0);
+      }
+      if (state.store.state.taskflag[1] == true) {
+        state.store.commit("workandtask", 1);
+      }
+      if (state.store.state.taskflag[2] == true) {
+        state.store.commit("workandtask", 2);
+      }
       state.ifshow[6] = false;
       state.ifshow[7] = false;
     };
@@ -155,7 +206,17 @@ export default defineComponent({
     const closeiconmenu = () => {
       state.ifshow[7] = false;
     };
+    //图标右键菜单
     const iconRight = (e: any, type: Number, index: Number) => {
+      if (state.store.state.taskflag[0] == true) {
+        state.store.commit("workandtask", 0);
+      }
+      if (state.store.state.taskflag[1] == true) {
+        state.store.commit("workandtask", 1);
+      }
+      if (state.store.state.taskflag[2] == true) {
+        state.store.commit("workandtask", 2);
+      }
       state.store.commit("openicon", type);
       state.store.commit("deleteiconnum", index);
       state.ifshow[7] = false;
@@ -167,13 +228,26 @@ export default defineComponent({
       }, 1);
     };
     //展示开始菜单
-    const startmenu=()=>{
-      state.ifshow[8]=true;
-    }
+    const startmenu = () => {
+      state.ifshow[8] = true;
+    };
+    const taskopen = (index: any) => {
+      if (state.store.state.taskflag[0] == true) {
+        state.store.commit("workandtask", 0);
+      }
+      if (state.store.state.taskflag[1] == true) {
+        state.store.commit("workandtask", 1);
+      }
+      if (state.store.state.taskflag[2] == true) {
+        state.store.commit("workandtask", 2);
+      }
+      open(state.store.state.deskicon[index].type);
+    };
     return {
       state,
       closeRig,
       startmenu,
+      taskopen,
       closeiconmenu,
       iconRight,
       open,

@@ -1,6 +1,10 @@
 <template>
-  <div :class="{ vscode: state.status, vscode1: !state.status }">
-    <div class="toolbar">
+  <div :class="{ vscode: state.status, vscode1: !state.status }" id="vscode">
+    <div
+      class="toolbar"
+      @mousedown.self="mousedown($event)"
+      @mouseup.self="mouseup($event)"
+    >
       <div class="leftbar">
         <div class="imgbox">
           <img src="../assets/icons/vscode.png" alt="" />
@@ -34,9 +38,52 @@ export default defineComponent({
       emit("closeVscode");
     };
     const bigorsmall = () => {
-        state.status=!state.status;
+      state.status = !state.status;
+    };
+    const mousedown = (event: any) => {
+      var event = event || window.event;
+      var _target: HTMLElement = document.querySelector(
+        "#vscode"
+      ) as HTMLElement;
+      console.log(_target);
+      var startx = event.clientX;
+      var starty = event.clientY;
+      var sb_bkx = startx - _target.offsetLeft;
+      var sb_bky = starty - _target.offsetTop;
+      var ww = document.documentElement.clientWidth;
+      var wh = window.innerHeight;
+
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+
+      document.onmousemove = function (ev: any) {
+        var event = ev || window.event;
+        var scrolltop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        if (
+          event.clientY < 0 ||
+          event.clientX < 0 ||
+          event.clientY > wh ||
+          event.clientX > ww
+        ) {
+          return false;
+        }
+        var endx = event.clientX - sb_bkx;
+        var endy = event.clientY - sb_bky;
+        _target.style.left = endx + "px";
+        _target.style.top = endy + "px";
+      };
+    };
+
+    const mouseup = (e: any) => {
+      document.onmousemove = null;
     };
     return {
+      mousedown,
+      mouseup,
       close,
       bigorsmall,
       state,

@@ -16,6 +16,7 @@
           class="icon"
           v-for="(item, index) in state.store.state.deskicon"
           :key="index"
+          @click="winopen(index)"
         >
           <img :src="item.img" alt="" />
           <span>{{ item.name }}</span>
@@ -24,11 +25,11 @@
     </div>
     <div class="switch">
       <div class="head">
-        <img src="../../assets/background/head.jpeg" alt="" />
+        <img src="../assets/background/head.jpeg" alt="" />
         <span>tutouyu</span>
       </div>
       <div class="button">
-        <img src="../../assets/menuIcons/power.png" @click="close" alt="" />
+        <img src="../assets/menuIcons/power.png" @click="close" alt="" />
       </div>
     </div>
   </div>
@@ -39,31 +40,35 @@ import { ref, defineComponent, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 export default defineComponent({
-  setup() {
+  setup(props, { emit }) {
     let router = useRouter();
     let state = reactive({
       store: useStore(),
       fixed: [
-        { name: "Mail", img: require("../../assets/appIcons/mail.png") },
-        { name: "OneNote", img: require("../../assets/appIcons/onenote.png") },
+        { name: "Mail", img: require("../assets/appIcons/mail.png") },
+        { name: "OneNote", img: require("../assets/appIcons/onenote.png") },
         {
           name: "PowerPoint",
-          img: require("../../assets/appIcons/powerpoint.png"),
+          img: require("../assets/appIcons/powerpoint.png"),
         },
-        { name: "Word", img: require("../../assets/appIcons/word.png") },
-        { name: "Twitter", img: require("../../assets/appIcons/twitter.png") },
-        { name: "Store", img: require("../../assets/appIcons/store.png") },
-        { name: "Pdf", img: require("../../assets/appIcons/pdf.png") },
+        { name: "Word", img: require("../assets/appIcons/word.png") },
+        { name: "Twitter", img: require("../assets/appIcons/twitter.png") },
+        { name: "Store", img: require("../assets/appIcons/store.png") },
+        { name: "Pdf", img: require("../assets/appIcons/pdf.png") },
         {
           name: "MarkDown",
-          img: require("../../assets/appIcons/markdown.png"),
+          img: require("../assets/appIcons/markdown.png"),
         },
       ],
     });
     let close=()=>{
         router.push({ path:'/open'})
     }
+    let winopen=(index:Number)=>{
+      emit("taskopen",index)
+    }
     return {
+      winopen,
       router,
       state,
       close,

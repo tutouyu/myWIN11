@@ -89,7 +89,8 @@ export default createStore({
     opennum: 0,
     deletenum: 0,
     recovernum: 0,
-    taskflag:[false,false],
+    Lightness: 0,
+    taskflag: [false, false, false],
     deskicon: [
       { name: "此电脑", img: require("../assets/icons/computer.png"), type: 0 },
       { name: "回收站", img: require("../assets/icons/trash-full.png"), type: 1 },
@@ -162,9 +163,14 @@ export default createStore({
     ] as any,
   },
   mutations: {
+    //调节桌面亮度
+    controlLightness: function (state, Lightness) {
+      console.log("hahah")
+      state.Lightness = 1 - Lightness / 100;
+    },
     //任务栏控制显示
-    workandtask:function(state,num){
-      state.taskflag[num]=!state.taskflag[num]
+    workandtask: function (state, num) {
+      state.taskflag[num] = !state.taskflag[num]
     },
     //确定恢复的文件是第几个
     recovernum: function (state, num) {

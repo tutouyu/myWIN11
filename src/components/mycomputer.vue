@@ -1,6 +1,13 @@
 <template>
-  <div :class="{ bigmycomputer: state.size, smallmycomputer: !state.size }">
-    <div class="toolbar">
+  <div
+    :class="{ bigmycomputer: state.size, smallmycomputer: !state.size }"
+    id="mycomputer"
+  >
+    <div
+      class="toolbar"
+      @mousedown="mousedown($event)"
+      @mouseup="mouseup($event)"
+    >
       <div class="leftbar">
         <div class="imgbox">
           <img src="../assets/icons/computer.png" alt="" />
@@ -123,7 +130,7 @@ export default defineComponent({
         require("../assets/fileexplorer/folder.png"),
       ],
       size: true,
-      
+
       files: [
         {
           name: "快速访问",
@@ -188,7 +195,65 @@ export default defineComponent({
     const next = () => {
       state.store.commit("nextpath");
     };
+    const move = () => {
+      console.log("hahah");
+      let computer: HTMLElement = document.getElementById(
+        "mycomputer"
+      ) as HTMLElement;
+      // 鼠标移动过程 - mousemove
+      document.addEventListener("mousemove", function (e) {
+        computer.style.left = e.clientX + "px";
+        computer.style.top = e.clientY + "px";
+      });
+      document.addEventListener("mouseup", function (e) {
+        document.removeEventListener("mousemove", function () {
+          alert("hahah");
+        });
+      });
+    };
+    const mousedown = (event:any) => {
+      var event = event || window.event;
+      var _target:HTMLElement = document.querySelector('#mycomputer') as HTMLElement;
+      console.log(_target)
+      var startx = event.clientX;
+      var starty = event.clientY;
+      var sb_bkx = startx - _target.offsetLeft;
+      var sb_bky = starty - _target.offsetTop;
+      var ww = document.documentElement.clientWidth;
+      var wh = window.innerHeight;
+
+      if (event.preventDefault) {
+        event.preventDefault();
+      } else {
+        event.returnValue = false;
+      }
+
+      document.onmousemove = function (ev: any) {
+        var event = ev || window.event;
+        var scrolltop =
+          document.documentElement.scrollTop || document.body.scrollTop;
+        if (
+          event.clientY < 0 ||
+          event.clientX < 0 ||
+          event.clientY > wh ||
+          event.clientX > ww
+        ) {
+          return false;
+        }
+        var endx = event.clientX - sb_bkx;
+        var endy = event.clientY - sb_bky;
+        _target.style.left = endx + "px";
+        _target.style.top = endy + "px";
+      };
+    };
+
+    const mouseup = (e: any) => {
+      document.onmousemove = null;
+    };
     return {
+      mouseup,
+      mousedown,
+      move,
       next,
       back,
       clickpath,
@@ -423,7 +488,7 @@ export default defineComponent({
       justify-content: flex-start;
       align-content: flex-start;
       flex-wrap: wrap;
-      width: 15%;
+      width: 14%;
       padding: 10px;
       height: calc(94vh - 32px - 40px - 50px - 5px);
       overflow: scroll;
