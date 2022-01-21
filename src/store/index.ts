@@ -8,10 +8,84 @@ export default createStore({
         name: "快速访问",
         type: 2,
         files: [
-          { name: "视频", type: 5, files: [] },
-          { name: "音乐", type: 6, files: [] },
-          { name: "文档", type: 7, files: [] },
-          { name: "图片", type: 8, files: [] },
+          {
+            name: "视频", type: 5, files: [{
+              name: "视频一",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频二",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频三",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频四",
+              files: [],
+              type: 5,
+            },]
+          },
+          {
+            name: "音乐", type: 6, files: [
+              {
+                name: "音乐一",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐二",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐三",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐四",
+                files: [],
+                type: 6,
+              },
+            ]
+          },
+          {
+            name: "文档", type: 7, files: [
+              {
+                name: "文档一",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档二",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档三",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档四",
+                files: [],
+                type: 7,
+              },
+            ]
+          },
+          {
+            name: "图片", type: 8, files: [
+              {
+                name: "图片一",
+                files: [],
+                type: 8,
+              }, {
+                name: "图片二",
+                files: [],
+                type: 8,
+              }, {
+                name: "图片三",
+                files: [],
+                type: 8,
+              },
+            ]
+          },
           { name: "桌面", type: 9, files: [] },
           { name: "下载", type: 10, files: [] },
         ],
@@ -25,15 +99,47 @@ export default createStore({
             type: 4,
             files: [
               {
-                name: "a",
-                files: [{ name: "b", files: [], type: 11 }],
+                name: "about",
+                files: [{ name: "balance", files: [], type: 11 }],
+                type: 11,
+              },
+              {
+                name: "count",
+                files: [{
+                  name: "document", files: [
+                    {
+                      name: "uuuuu",
+                      files: [],
+                      type: 11,
+                    },
+                  ], type: 11
+                }],
                 type: 11,
               },
             ],
           },
-          { name: "本地磁盘(D:)", type: 4, files: [] },
-          { name: "本地磁盘(E:)", type: 4, files: [] },
-          { name: "本地磁盘(F:)", type: 4, files: [] },
+          {
+            name: "本地磁盘(D:)", type: 4, files: [{
+              name: "abab",
+              files: [{ name: "bbbbbb", files: [], type: 11 }],
+              type: 11,
+            },
+            {
+              name: "cccccc",
+              files: [{
+                name: "ddddddd", files: [
+                  {
+                    name: "uuooooooo",
+                    files: [],
+                    type: 11,
+                  }
+                ], type: 11
+              }],
+              type: 11,
+            },]
+          },
+          { name: "本地磁盘(E:)", type: 4, files: [{ name: "suprise", files: [], type: 11 }] },
+          { name: "本地磁盘(F:)", type: 4, files: [{ name: "这你也能翻到", files: [], type: 11 }] },
         ],
       },
       {
@@ -50,10 +156,84 @@ export default createStore({
         name: "快速访问",
         type: 2,
         files: [
-          { name: "视频", type: 5, files: [] },
-          { name: "音乐", type: 6, files: [] },
-          { name: "文档", type: 7, files: [] },
-          { name: "图片", type: 8, files: [] },
+          {
+            name: "视频", type: 5, files: [{
+              name: "视频一",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频二",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频三",
+              files: [],
+              type: 5,
+            }, {
+              name: "视频四",
+              files: [],
+              type: 5,
+            },]
+          },
+          {
+            name: "音乐", type: 6, files: [
+              {
+                name: "音乐一",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐二",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐三",
+                files: [],
+                type: 6,
+              }, {
+                name: "音乐四",
+                files: [],
+                type: 6,
+              },
+            ]
+          },
+          {
+            name: "文档", type: 7, files: [
+              {
+                name: "文档一",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档二",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档三",
+                files: [],
+                type: 7,
+              }, {
+                name: "文档四",
+                files: [],
+                type: 7,
+              },
+            ]
+          },
+          {
+            name: "图片", type: 8, files: [
+              {
+                name: "图片一",
+                files: [],
+                type: 8,
+              }, {
+                name: "图片二",
+                files: [],
+                type: 8,
+              }, {
+                name: "图片三",
+                files: [],
+                type: 8,
+              },
+            ]
+          },
           { name: "桌面", type: 9, files: [] },
           { name: "下载", type: 10, files: [] },
         ],
@@ -67,15 +247,47 @@ export default createStore({
             type: 4,
             files: [
               {
-                name: "a",
-                files: [{ name: "b", files: [], type: 11 }],
+                name: "about",
+                files: [{ name: "balance", files: [], type: 11 }],
+                type: 11,
+              },
+              {
+                name: "count",
+                files: [{
+                  name: "document", files: [
+                    {
+                      name: "uuuuu",
+                      files: [],
+                      type: 11,
+                    },
+                  ], type: 11
+                }],
                 type: 11,
               },
             ],
           },
-          { name: "本地磁盘(D:)", type: 4, files: [] },
-          { name: "本地磁盘(E:)", type: 4, files: [] },
-          { name: "本地磁盘(F:)", type: 4, files: [] },
+          {
+            name: "本地磁盘(D:)", type: 4, files: [{
+              name: "abab",
+              files: [{ name: "bbbbbb", files: [], type: 11 }],
+              type: 11,
+            },
+            {
+              name: "cccccc",
+              files: [{
+                name: "ddddddd", files: [
+                  {
+                    name: "uuooooooo",
+                    files: [],
+                    type: 11,
+                  }
+                ], type: 11
+              }],
+              type: 11,
+            },]
+          },
+          { name: "本地磁盘(E:)", type: 4, files: [{ name: "suprise", files: [], type: 11 }] },
+          { name: "本地磁盘(F:)", type: 4, files: [{ name: "这你也能翻到", files: [], type: 11 }] },
         ],
       },
       {
@@ -122,45 +334,149 @@ export default createStore({
         type: 4,
       },
     ],
-    contentfile: [
-      {
-        name: "快速访问",
-        type: 2,
-        files: [
-          { name: "视频", type: 5, files: [] },
-          { name: "音乐", type: 6, files: [] },
-          { name: "文档", type: 7, files: [] },
-          { name: "图片", type: 8, files: [] },
-          { name: "桌面", type: 9, files: [] },
-          { name: "下载", type: 10, files: [] },
-        ],
-      },
-      {
-        name: "我的电脑",
-        type: 1,
-        files: [
-          {
-            name: "本地磁盘(C:)",
-            type: 4,
-            files: [
-              {
-                name: "a",
-                files: [{ name: "b", files: [], type: 11 }],
-                type: 11,
-              },
-            ],
+    contentfile: [{
+      name: "快速访问",
+      type: 2,
+      files: [
+        {
+          name: "视频", type: 5, files: [{
+            name: "视频一",
+            files: [],
+            type: 5,
+          }, {
+            name: "视频二",
+            files: [],
+            type: 5,
+          }, {
+            name: "视频三",
+            files: [],
+            type: 5,
+          }, {
+            name: "视频四",
+            files: [],
+            type: 5,
+          },]
+        },
+        {
+          name: "音乐", type: 6, files: [
+            {
+              name: "音乐一",
+              files: [],
+              type: 6,
+            }, {
+              name: "音乐二",
+              files: [],
+              type: 6,
+            }, {
+              name: "音乐三",
+              files: [],
+              type: 6,
+            }, {
+              name: "音乐四",
+              files: [],
+              type: 6,
+            },
+          ]
+        },
+        {
+          name: "文档", type: 7, files: [
+            {
+              name: "文档一",
+              files: [],
+              type: 7,
+            }, {
+              name: "文档二",
+              files: [],
+              type: 7,
+            }, {
+              name: "文档三",
+              files: [],
+              type: 7,
+            }, {
+              name: "文档四",
+              files: [],
+              type: 7,
+            },
+          ]
+        },
+        {
+          name: "图片", type: 8, files: [
+            {
+              name: "图片一",
+              files: [],
+              type: 8,
+            }, {
+              name: "图片二",
+              files: [],
+              type: 8,
+            }, {
+              name: "图片三",
+              files: [],
+              type: 8,
+            },
+          ]
+        },
+        { name: "桌面", type: 9, files: [] },
+        { name: "下载", type: 10, files: [] },
+      ],
+    },
+    {
+      name: "我的电脑",
+      type: 1,
+      files: [
+        {
+          name: "本地磁盘(C:)",
+          type: 4,
+          files: [
+            {
+              name: "about",
+              files: [{ name: "balance", files: [], type: 11 }],
+              type: 11,
+            },
+            {
+              name: "count",
+              files: [{
+                name: "document", files: [
+                  {
+                    name: "uuuuu",
+                    files: [],
+                    type: 11,
+                  },
+                ], type: 11
+              }],
+              type: 11,
+            },
+          ],
+        },
+        {
+          name: "本地磁盘(D:)", type: 4, files: [{
+            name: "abab",
+            files: [{ name: "bbbbbb", files: [], type: 11 }],
+            type: 11,
           },
-          { name: "本地磁盘(D:)", type: 4, files: [] },
-          { name: "本地磁盘(E:)", type: 4, files: [] },
-          { name: "本地磁盘(F:)", type: 4, files: [] },
-        ],
-      },
-      {
-        name: "网络",
-        type: 3,
-        files: [],
-      },
-    ] as any,
+          {
+            name: "cccccc",
+            files: [{
+              name: "ddddddd", files: [
+                {
+                  name: "uuooooooo",
+                  files: [],
+                  type: 11,
+                }
+              ], type: 11
+            }],
+            type: 11,
+          },]
+        },
+        { name: "本地磁盘(E:)", type: 4, files: [{ name: "suprise", files: [], type: 11 }] },
+        { name: "本地磁盘(F:)", type: 4, files: [{ name: "这你也能翻到", files: [], type: 11 }] },
+      ],
+    },
+    {
+      name: "网络",
+      type: 3,
+      files: [],
+    },] as any,
   },
   mutations: {
     //调节桌面亮度

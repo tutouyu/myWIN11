@@ -3,23 +3,23 @@
       <h3>已完成功能(未完成的一律用这个界面代替)</h3>
     <div class="point">
       <div class="title">文件资源管理器（我的电脑）</div>
-      递归查看 地址栏和侧边导航栏和内容显示耦合 历史后退和前进 放大缩小
+      递归查看 地址栏和侧边导航栏和内容显示耦合 历史后退和前进 放大缩小 可拖动
     </div>
     <div class="point">
       <div class="title">回收站</div>
-      文件恢复 放大缩小
+      文件恢复 放大缩小 可拖动
     </div>
     <div class="point">
       <div class="title">浏览器</div>
-      网页浏览 地址输入和点击收藏栏跳转 历史后退和前进 刷新页面 放大缩小
+      网页浏览 地址输入和点击收藏栏跳转 历史后退和前进 刷新页面 放大缩小 可拖动
     </div>
     <div class="point">
       <div class="title">vscode</div>
-      vscode全部功能 放大缩小
+      vscode全部功能 放大缩小 可拖动
     </div>
     <div class="point">
       <div class="title">github</div>
-      跳转到我github
+      跳转到我github 
     </div>
     <div class="point">
       <div class="title">右键菜单</div>
@@ -27,7 +27,7 @@
     </div>
     <div class="point">
       <div class="title">开始菜单</div>
-      打开桌面图标 关机
+      打开桌面图标 关机 调节亮度
     </div>
     <div class="point"><div class="title"></div></div>
     <div class="point"><div class="title"></div></div>
