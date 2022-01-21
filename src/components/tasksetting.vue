@@ -108,7 +108,7 @@ export default defineComponent({
   position: absolute;
   right: 15px;
   bottom: 15px;
-  background-color: hsla(0, 0%, 100%, 0.8);
+  background-color: rgba(224, 219, 219, 0.8);
   .icons {
     display: flex;
     flex-wrap: wrap;
@@ -125,7 +125,7 @@ export default defineComponent({
         margin-bottom: 5px;
         border-radius: 10px;
         overflow: hidden;
-        background-color: hsla(10%, 10%, 95%, 0.8);
+        background-color: rgba(247, 244, 244, 0.7);
         img {
           width: 25px;
           height: 25px;

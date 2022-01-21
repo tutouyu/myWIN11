@@ -82,7 +82,7 @@ export default defineComponent({
   width: 600px;
   height: 600px;
   border-radius: 20px;
-  background-color: hsla(0, 0%, 100%, 0.8);
+  background-color: rgba(228, 227, 227, 0.8);
   position: absolute;
   bottom: 10px;
   left: 50%;
@@ -117,7 +117,7 @@ export default defineComponent({
           font-size: 10px;
         }
         &:hover {
-          background-color: hsla(0, 8%, 77%, 0.8);
+          background-color: rgba(206, 197, 197, 0.8);
         }
       }
     }
@@ -127,7 +127,7 @@ export default defineComponent({
   }
   .switch {
     border-radius: 0 0 10px 10px;
-    background-color: hsla(0, 15%, 88%, 0.8);
+    background-color: rgba(228, 212, 212, 0.8);
     height: 10%;
     display: flex;
     justify-content: space-between;
@@ -150,9 +150,6 @@ export default defineComponent({
         width: 20px;
         height: 20px;
         border-radius: 10px;
-      }
-      &:hover {
-        background-color: hsla(0, 8%, 77%, 0.8);
       }
     }
   }

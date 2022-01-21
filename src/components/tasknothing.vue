@@ -53,7 +53,7 @@ export default defineComponent({
  }
   width: 600px;
   border-radius: 20px;
-  background-color: hsla(0, 0%, 100%, 0.8);
+  background-color: rgba(230, 225, 225, 0.8);
   position: absolute;
   top: 80px;
   left: 50%;
