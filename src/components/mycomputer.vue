@@ -592,7 +592,7 @@ export default defineComponent({
       justify-content: flex-start;
       align-content: flex-start;
       flex-wrap: wrap;
-      width: 14%;
+      width: 15%;
       padding: 10px;
       height: calc(94vh - 32px - 40px - 50px - 5px);
       overflow: scroll;

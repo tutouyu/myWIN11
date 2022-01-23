@@ -23,38 +23,39 @@
       </div>
       <div class="timebar">
         <span>{{
-          year +
+          state.year +
           "&nbsp;" +
           "/" +
           "&nbsp;" +
-          month +
+          state.month +
           "&nbsp;" +
           "/" +
           "&nbsp;" +
-          day
+          state.day
         }}</span>
-        <span>{{ hh + ":" + mm + " " + state.week[week] }}</span>
+        <span>{{
+          state.hh + ":" + state.mm + " " + state.weeks[state.week]
+        }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, defineComponent, reactive } from "vue";
+import { ref, defineComponent, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
   setup(props, { emit }) {
-    var now = new Date();
-    var year = now.getFullYear();
-    var month = now.getMonth() + 1;
-    var day = now.getDate();
-    var hh = now.getHours();
-    var mm = now.getMinutes();
-    var ss = now.getSeconds();
-    var week = now.getDay();
     let store = useStore();
     let state = reactive({
-      week: [
+      year: new Date().getFullYear(),
+      month: new Date().getMonth()+1,
+      day: new Date().getDate(),
+      hh: new Date().getHours(),
+      mm: new Date().getMinutes(),
+      ss: new Date().getSeconds(),
+      week: new Date().getDay(),
+      weeks: [
         "星期天",
         "星期一",
         "星期二",
@@ -68,10 +69,6 @@ export default defineComponent({
         { name: "search", img: require("../assets/icons/search-light.png") },
         { name: "setting", img: require("../assets/icons/settings.png") },
       ],
-      time: {
-        day: year + " " + "/" + " " + month + " " + " / " + "" + day,
-        curtime: hh + ":" + mm + ":" + ss,
-      },
       attricon: [
         { name: "wife", img: require("../assets/ui/offline-mode.png") },
         { name: "power", img: require("../assets/ui/battery.png") },
@@ -90,14 +87,18 @@ export default defineComponent({
     const settingclick = () => {
       store.commit("workandtask", 2);
     };
+    onMounted(() => {
+      setInterval(() => {
+      state.year=new Date().getFullYear()
+      state.month= new Date().getMonth()+1
+      state.day= new Date().getDate()
+      state.hh= new Date().getHours()
+      state.mm= new Date().getMinutes()
+      state.ss= new Date().getSeconds()
+      state.week= new Date().getDay()
+      }, 1000);
+    });
     return {
-      week,
-      year,
-      month,
-      day,
-      hh,
-      mm,
-      ss,
       settingclick,
       show,
       state,

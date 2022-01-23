@@ -81,6 +81,9 @@ export default defineComponent({
     &:hover {
       background-color: rgb(230, 227, 224);
     }
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     img {
       vertical-align: middle;
       margin: 3px;
@@ -89,6 +92,7 @@ export default defineComponent({
     }
     span {
       font-size: 18px;
+      vertical-align: middle;
     }
   }
 
