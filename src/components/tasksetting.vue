@@ -44,7 +44,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent, reactive, watch } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
@@ -93,7 +93,7 @@ export default defineComponent({
         state.store.commit("controlLightness", newValue);
       }
     );
-    const clickimg = (index) => {
+    const clickimg = (index:any) => {
       state.icons[index].ifclick = !state.icons[index].ifclick;
     };
     return { state, clickimg };

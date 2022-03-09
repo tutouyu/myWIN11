@@ -1,5 +1,9 @@
 <template>
-  <div class="recycle" @click="mouseclick" id="recycle">
+  <div
+    :class="{ bigrecycle: state.status, smallrecycle: !state.status }"
+    @click="mouseclick"
+    id="recycle"
+  >
     <div
       class="toolbar"
       @mousedown.self="mousedown($event)"
@@ -96,6 +100,7 @@ export default defineComponent({
   setup(props, { emit }) {
     let state = reactive({
       store: useStore(),
+      status: true,
       mouseposition: {
         x: "0",
         y: "0",
@@ -138,7 +143,9 @@ export default defineComponent({
       state.rightshow = false;
       state.store.commit("recovericon", state.store.state.recovernum);
     };
-    const bigorsmall = () => {};
+    const bigorsmall = () => {
+      state.status=!state.status
+    };
     const mousedown = (event: any) => {
       var event = event || window.event;
       var _target: HTMLElement = document.querySelector(
@@ -195,13 +202,11 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-.recycle {
+.bigrecycle {
   border: 1px solid rgb(211, 209, 209);
-  width: 1000px;
-  height: 600px;
+  width: 100%;
+  height: 94vh;
   position: absolute;
-  top: calc(50% - 300px);
-  left: calc(50% - 500px);
   background-color: #f3f3f3;
   .toolbar {
     width: 100%;
@@ -444,5 +449,9 @@ export default defineComponent({
       }
     }
   }
+}
+.smallrecycle{
+    @extend .bigrecycle;
+  transform: scale(0.6);
 }
 </style>

@@ -35,7 +35,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent, reactive } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({

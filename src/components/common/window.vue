@@ -1,37 +1,39 @@
 <template>
-  <window>
-    <span slot="name">Visual Studio Code</span>
-    <img src="../assets/icons/vscode.png" alt="" slot="img"/>
-    <iframe
-      src="https://github1s.com/tutouyu/myWIN11"
-      class="vscodeFrame"
-      frameborder="0"
-      slot="content"
-    ></iframe
-  ></window>
+  <div id="yuwindow" :class="{ bigwindow: size, smallwindow: !size }" v-if="isshow">
+    <div
+      class="toolbar"
+      @mousedown="mousedown($event)"
+      @mouseup="mouseup($event)"
+    >
+      <div class="leftbar">
+        <div class="imgbox">
+          <slot name="img"></slot>
+        </div>
+        <span><slot name="name"></slot></span>
+      </div>
+      <div class="rightbar">
+        <div @click="close">-</div>
+        <div @click="bigorsmall">▢</div>
+        <div @click="close">×</div>
+      </div>
+    </div> 
+     <slot name="content"></slot>
+  </div>
 </template>
-<script lang="ts">
-import window from "./common/window.vue";
-import { ref, defineComponent, reactive } from "vue";
-export default defineComponent({
-  components: {
-    window,
+
+<script>
+export default {
+  name: "window",
+  data() {
+    return {
+      size: true,
+      isshow:true,
+    };
   },
-  setup(props, { emit }) {
-    let state = reactive({
-      status: true,
-    });
-    const close = () => {
-      emit("closeVscode");
-    };
-    const bigorsmall = () => {
-      state.status = !state.status;
-    };
-    const mousedown = (event: any) => {
+  methods: {
+    mousedown(event) {
       var event = event || window.event;
-      var _target: HTMLElement = document.querySelector(
-        "#vscode"
-      ) as HTMLElement;
+      var _target = document.querySelector("#yuwindow");
       console.log(_target);
       var startx = event.clientX;
       var starty = event.clientY;
@@ -39,14 +41,12 @@ export default defineComponent({
       var sb_bky = starty - _target.offsetTop;
       var ww = document.documentElement.clientWidth;
       var wh = window.innerHeight;
-
       if (event.preventDefault) {
         event.preventDefault();
       } else {
         event.returnValue = false;
       }
-
-      document.onmousemove = function (ev: any) {
+      document.onmousemove = function (ev) {
         var event = ev || window.event;
         var scrolltop =
           document.documentElement.scrollTop || document.body.scrollTop;
@@ -63,30 +63,27 @@ export default defineComponent({
         _target.style.left = endx + "px";
         _target.style.top = endy + "px";
       };
-    };
-
-    const mouseup = (e: any) => {
+    },
+    mouseup(e) {
       document.onmousemove = null;
-    };
-    return {
-      mousedown,
-      mouseup,
-      close,
-      bigorsmall,
-      state,
-    };
+    },
+    bigorsmall() {
+      this.size = !this.size;
+    },
+    close(){
+      this.isshow=false;
+    }
   },
-});
+};
 </script>
 
 <style lang="scss">
-.vscode {
-  transition: all 0.1s ease;
-  position: absolute;
-  top: 0;
-  background-color: rgb(43, 42, 42);
+.bigwindow {
+  border: 1px solid rgb(211, 209, 209);
   width: 100%;
-  height: 100%;
+  height: 94vh;
+  position: absolute;
+  background-color: #f3f3f3;
   .toolbar {
     width: 100%;
     height: 32px;
@@ -108,13 +105,13 @@ export default defineComponent({
         }
       }
       span {
-        color: white;
+        color: rgb(0, 0, 0);
       }
     }
     .rightbar {
       display: flex;
       align-items: center;
-      color: white;
+      color: rgb(0, 0, 0);
       div {
         font-weight: bold;
         line-height: 32px;
@@ -122,18 +119,14 @@ export default defineComponent({
         height: 32px;
         text-align: center;
         &:hover {
-          background-color: rgb(54, 54, 54);
+          background-color: rgb(218, 216, 216);
         }
       }
     }
   }
-  .vscodeFrame {
-    width: 100%;
-    height: calc(94vh - 32px);
-  }
 }
-.vscode1 {
-  @extend .vscode;
+.smallwindow {
+  @extend .bigwindow;
   transform: scale(0.6);
 }
 </style>

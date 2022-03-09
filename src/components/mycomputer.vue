@@ -299,22 +299,6 @@ export default defineComponent({
     const next = () => {
       state.store.commit("nextpath");
     };
-    const move = () => {
-      console.log("hahah");
-      let computer: HTMLElement = document.getElementById(
-        "mycomputer"
-      ) as HTMLElement;
-      // 鼠标移动过程 - mousemove
-      document.addEventListener("mousemove", function (e) {
-        computer.style.left = e.clientX + "px";
-        computer.style.top = e.clientY + "px";
-      });
-      document.addEventListener("mouseup", function (e) {
-        document.removeEventListener("mousemove", function () {
-          alert("hahah");
-        });
-      });
-    };
     const mousedown = (event:any) => {
       var event = event || window.event;
       var _target:HTMLElement = document.querySelector('#mycomputer') as HTMLElement;
@@ -357,7 +341,6 @@ export default defineComponent({
     return {
       mouseup,
       mousedown,
-      move,
       next,
       back,
       clickpath,

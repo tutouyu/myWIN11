@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="desktop-shade"
-    :style="{ '--opacity': store.state.Lightness }"
-  >
+  <div class="desktop-shade" :style="{ '--opacity': store.state.Lightness }">
     <div class="desktop"><workspace /> <taskbar /></div>
   </div>
 </template>
-<script>
+<script lang="ts">
 import { ref, defineComponent } from "vue";
 import taskbar from "../components/taskbar.vue";
 import workspace from "../components/workspace.vue";

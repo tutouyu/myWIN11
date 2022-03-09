@@ -41,7 +41,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { ref, defineComponent, reactive, onMounted } from "vue";
 import { useStore } from "vuex";
 export default defineComponent({
@@ -75,7 +75,7 @@ export default defineComponent({
         { name: "audio", img: require("../assets/ui/audio.png") },
       ],
     });
-    let show = (index) => {
+    let show = (index:any) => {
       if (index == 0) {
         store.commit("workandtask", 0);
       } else if (index == 1) {

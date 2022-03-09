@@ -20,6 +20,7 @@
         <img :src="item.img" alt="" />
         <span>{{ item.name }}</span>
       </div>
+      
       <transition name="fade">
         <edge v-if="state.ifshow[2]" @closeEdge="closeEd"></edge>
       </transition>
